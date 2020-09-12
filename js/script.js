@@ -18,7 +18,7 @@ var getWeather = function(myCity,myCountry) {
             response.json().then(function(data){
                 //display weather
                 console.log(data);
-                
+                console.log(data.list);
             });
         } else {
             alert("Error: " + response.statusText);
