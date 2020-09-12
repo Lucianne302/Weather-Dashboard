@@ -75,7 +75,7 @@ var formSubmitHandler = function(event) {
 
     if (cityName) {
         loadCities(cityName);
-        nameInputEl.value = "";
+        cityInputEl.value = "";
     } else {
         alert("Please enter a GitHub username");
     }
