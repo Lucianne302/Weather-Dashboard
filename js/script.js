@@ -13,10 +13,11 @@ var getWeather = function(myCity,myCountry) {
 
     console.log("weather");
     fetch(myWeather).then(function(response){
-        console.log(response);
+    //    console.log(response);
         if(response.ok) {
             response.json().then(function(data){
                 //display weather
+                console.log(data);
                 
             });
         } else {
