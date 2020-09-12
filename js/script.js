@@ -1,6 +1,6 @@
 var recentCities = new Array;
 var testCity="Intercourse"; // for testing only
-var cities="";
+//var cities="";
 
 
 /*var searchCity = function() {
@@ -40,7 +40,7 @@ var loadCities = function(myCity) {
         if(response.ok) {
             response.json().then(function(data){
                 //create function to search cities
-                searchCities(data.items, myCity);
+                searchCities(data, myCity);
             });
         } else {
             alert("Error: " + response.statusText);
