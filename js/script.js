@@ -9,7 +9,7 @@ var getWeather = function(myCity,myCountry) {
 //    var end = now();
 
 //    var myWeather="http://history.openweathermap.org/data/2.5/history/city?q="+ myCity +","+ myCountry +"&type=hour&start=" + start + "&end=" + end + "&appid="+weatherAPIkey;
-    var myWeather="http://api.openweathermap.org/data/2.5/forecast?id="+ myCity +"&APPID="+weatherAPIkey;
+    var myWeather="https://api.openweathermap.org/data/2.5/forecast?id="+ myCity +"&APPID="+weatherAPIkey;
 
     console.log("weather");
     fetch(myWeather).then(function(response){
