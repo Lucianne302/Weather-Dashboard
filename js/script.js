@@ -55,10 +55,10 @@ var loadCities = function(myCity) {
     var myJsonCityList="https://lucianne302.github.io/Weather-Dashboard/city.list.json";
 
     fetch(myJsonCityList).then(function(response){
-        console.log(response);
         if(response.ok) {
             response.json().then(function(data){
                 //create function to search cities
+                console.log(data);
                 searchCities(data, myCity);
             });
         } else {
