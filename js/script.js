@@ -1,5 +1,5 @@
 var recentCities = new Array;
-var testCity="Intercourse"; // for testing only
+var testCity="Newark"; // for testing only
 var weatherAPIkey = "6de092f191d98a89bbf3ab33da4e73c5";
 var searchButtonEl = document.querySelector("#buttons");
 var cityFormEl = document.querySelector("#city-form");
@@ -90,13 +90,13 @@ cityFormEl.addEventListener("submit", formSubmitHandler);
 /* Sample JSON
   [
     {
-        "id": 5194941,
-        "name": "Intercourse",
-        "state": "PA",
+        "id": 4143861,
+        "name": "Newark",
+        "state": "DE",
         "country": "US",
         "coord": {
-            "lon": -76.10495,
-            "lat": 40.037601
+            "lon": -75.749657,
+            "lat": 39.68372
         }
     }
   ]
