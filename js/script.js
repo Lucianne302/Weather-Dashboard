@@ -10,8 +10,9 @@ var recentCities = new Array;
 searchCity();
 */
 
+/*
 var getCities = function() {
-    var myJsonCityList="./city.list.json";
+    var myJsonCityList="https://github.com/Lucianne302/Weather-Dashboard/blob/feature/search/city.list.json";
 
     fetch(myJsonCityList).then(function(response){
         console.log(response);
@@ -25,20 +26,30 @@ var getCities = function() {
     });
 };
 getCities();
+*/
 
-/*
+
 // load json for cities from file
-var myJsonCityList="./city.list.json";
+var myJsonCityList="city.list.json";
+//$.get(myJsonCityList, function(response) {
+//    var logfile = response;
+  //  console.log(response);
+//});
+/*
 $.getJSON(myJsonCityList, function(json) {
-    console.log(json);
-    var items = [];
+    console.log(json); // this will show the info it in firebug console
+});
+*/
+//$.getJSON(myJsonCityList, function(json) {
+ //   console.log(json);
+  //  var items = [];
   /*
   $.each( data, function( key, val ) {
     items.push( "<li id='" + key + "'>" + val + "</li>" );
   });
   
 });
-*/
+
 //cityList();
 
 
