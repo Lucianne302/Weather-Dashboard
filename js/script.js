@@ -47,7 +47,7 @@ var loadCities = function(myCity) {
         }
     });
 };
-getCities(testCity); // replace test with searched city
+loadCities(testCity); // replace test with searched city
 
 /* Sample JSON
   [
