@@ -1,6 +1,9 @@
 var recentCities = new Array;
 var testCity="Intercourse"; // for testing only
 var weatherAPIkey = "6de092f191d98a89bbf3ab33da4e73c5";
+var searchButtonEl = document.querySelector("#buttons");
+var cityFormEl = document.querySelector("#city-form");
+var cityInputEl = document.querySelector("#city");
 //var cities="";
 
 
@@ -19,6 +22,7 @@ var getWeather = function(myCity,myCountry) {
                 //display weather
                 console.log(data);
                 console.log(data.list);
+                console.log(data.list[0].main);
             });
         } else {
             alert("Error: " + response.statusText);
@@ -62,7 +66,26 @@ var loadCities = function(myCity) {
         }
     });
 };
-loadCities(testCity); // replace test with searched city
+
+var formSubmitHandler = function(event) {
+    event.preventDefault();
+    
+    // get value from input element
+    var cityName = cityInputEl.value.trim();
+
+    if (cityName) {
+        loadCities(cityName);
+        nameInputEl.value = "";
+    } else {
+        alert("Please enter a GitHub username");
+    }
+}
+
+loadRecentCities(); // load the recent cities searched
+//loadCities(testCity); // replace with event listener & testCity with the searched city & save the searched term to local memory
+
+// recent search languageButtonsEl.addEventListener("click", buttonClickHandler); 
+cityFormEl.addEventListener("submit", formSubmitHandler); 
 
 /* Sample JSON
   [
