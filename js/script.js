@@ -1,17 +1,30 @@
 var recentCities = new Array;
 var testCity="Intercourse"; // for testing only
+var weatherAPIkey = "6de092f191d98a89bbf3ab33da4e73c5";
 //var cities="";
 
 
-/*var searchCity = function() {
-    fetch("http://history.openweathermap.org/data/2.5/history/city?id={id}&type=hour&start={start}&end={end}&appid={YOUR_API_KEY}").then(function(response) {
-        response.json().then(function(data) {
-        console.log(data);
-        });
+var getWeather = function(myCity,myCountry) {
+    var start = now();
+    var end = now();
+
+//    var myWeather="http://history.openweathermap.org/data/2.5/history/city?q="+ myCity +","+ myCountry +"&type=hour&start=" + start + "&end=" + end + "&appid="+weatherAPIkey;
+    var myWeather="http://api.openweathermap.org/data/2.5/forecast?id="+ myCity +"&APPID="+weatherAPIkey;
+
+
+    fetch(myWeather).then(function(response){
+        console.log(response);
+        if(response.ok) {
+            response.json().then(function(data){
+                //display weather
+                
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
     });
 };
-searchCity();
-*/
+
 function loadRecentCities(){ // get recent cities searched from local storage
 };
 
@@ -26,7 +39,8 @@ var searchCities = function(cities, searchTerm) {
     //loop over cities
     $.each(cities, function(i, city) {
         if (city.name == searchTerm) {
-            alert("cityName:"+city.name+" cityID:"+city.id);
+            console.log("cityName:"+city.name+" cityID:"+city.id+" Country:"+city.country);
+            getWeather(city.id,city.country);
             return;
         }
     });
@@ -95,10 +109,19 @@ $.getJSON(myJsonCityList, function(json) {
 
 //cityList();
 
+/*var searchCity = function() {
+    fetch("http://history.openweathermap.org/data/2.5/history/city?id={id}&type=hour&start={start}&end={end}&appid={YOUR_API_KEY}").then(function(response) {
+        response.json().then(function(data) {
+        console.log(data);
+        });
+    });
+};
+searchCity();
+*/
 
 /*var searchCity = function() {
     var city = document.getElementById("city");
-    var weatherAPIkey = "6de092f191d98a89bbf3ab33da4e73c5";*/
+    */
 
     //search city list for one entered or autocomplete based off list
 
