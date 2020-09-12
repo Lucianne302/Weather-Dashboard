@@ -1,4 +1,7 @@
 var recentCities = new Array;
+var testCity="Intercourse"; // for testing only
+var cities="";
+
 
 /*var searchCity = function() {
     fetch("http://history.openweathermap.org/data/2.5/history/city?id={id}&type=hour&start={start}&end={end}&appid={YOUR_API_KEY}").then(function(response) {
@@ -9,28 +12,68 @@ var recentCities = new Array;
 };
 searchCity();
 */
+function loadRecentCities(){ // get recent cities searched from local storage
+};
 
-/*
-var getCities = function() {
-    var myJsonCityList="https://github.com/Lucianne302/Weather-Dashboard/blob/feature/search/city.list.json";
+var searchCities = function(cities, searchTerm) {
+    // check if api returned any cities
+    if (cities.length === 0) {
+        //repoContainerEl.textContent = "No repositories found.";
+        alert('No cities file found.')
+        return;
+    }
+
+    //loop over cities
+    $.each(cities, function(i, city) {
+        if (city.name == searchTerm) {
+            alert("cityName:"+city.name+" cityID:"+city.id);
+            return;
+        }
+    });
+}
+
+var loadCities = function(myCity) {
+    var myJsonCityList="https://lucianne302.github.io/Weather-Dashboard/city.list.json";
 
     fetch(myJsonCityList).then(function(response){
         console.log(response);
         if(response.ok) {
             response.json().then(function(data){
-                displayRepos(data.items, language);
+                //create function to search cities
+                searchCities(data.items, myCity);
             });
         } else {
             alert("Error: " + response.statusText);
         }
     });
 };
-getCities();
+getCities(testCity); // replace test with searched city
+
+/* Sample JSON
+  [
+    {
+        "id": 5194941,
+        "name": "Intercourse",
+        "state": "PA",
+        "country": "US",
+        "coord": {
+            "lon": -76.10495,
+            "lat": 40.037601
+        }
+    }
+  ]
 */
 
+/*
+var jsonCityListFile="city.list.json";
+$.get(jsonCityListFile, function(response) {
+//    var logfile = response;
+    console.log(response);
+});
+*/
 
 // load json for cities from file
-var myJsonCityList="city.list.json";
+//var myJsonCityList="city.list.json";
 //$.get(myJsonCityList, function(response) {
 //    var logfile = response;
   //  console.log(response);
