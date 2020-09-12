@@ -5,29 +5,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
   <title>Weather Dashboard</title>
 </head>
 
 <body class="flex-column min-100-vh">
   <header class="hero">
     <h1 class="app-title">Weather Dashboard <span id="repo-name"></span></h1>
-    
-    <!--div>
-      <a href="./index.html" class="btn-back">
-        Go Back
-      </a>
-    </div>
-    <div class="list-group" id="issues-container">
-    </div>
-    <div id="limit-warning">
-    </div -->
-    
   </header>
   
-  <main>
-  
+  <main class="flex-row justify-space-between">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <h3 class="card-header">Search for a City:</h3>
+        <form id="city-form" class="card-body">
+          <label class="form-label" for="city"></label>
+          <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+          <button type="submit" class="btn"><span class="oi oi-magnifying-glass"></span>Search</button>
+        </form>
+      </div>
+      <div class="list-cities" id="list-cities">
+        <ul id="searched-cities" class="searched-cities">
+        </ul>
+      </div>
+    </div>
+
+    <!--div class="col-12 col-md-4">
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search By Topic</h3>
+        <div class="card-body" id="language-buttons" data-language="JavaScript">
+          <button type="submit" class="btn">JavaScript</button>
+        </div>
+        <div class="card-body" id="language-buttons" data-language="HTML">
+          <button type="submit" class="btn">HTML</button>
+        </div>
+        <div class="card-body" id="language-buttons" data-language="CSS">
+          <button type="submit" class="btn">CSS</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+      <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+      <div id="repos-container" class="list-group"></div>
+    </div-->
   </main>
+
   <script src="./js/script.js"></script>
 </body>
 

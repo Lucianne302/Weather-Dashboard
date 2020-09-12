@@ -1,3 +1,11 @@
+:root {
+    --primary: rgb(238, 237, 237);
+    --secondary: #9caea9;
+    --tertiary: #788585;
+    --light: white;
+    --dark: #38302e;
+    --border-radius: .3rem;
+  }
 
 * {
     box-sizing: border-box;
@@ -14,7 +22,7 @@ font-size: 16px;
 }
 
 .hero {
-padding: 3% 4%;
+padding: .05% .05%;
 background-color: var(--dark);
 color: var(--primary);
 }
@@ -24,14 +32,42 @@ max-width: 75%;
 }
 
 .app-title {
+    text-align: center;
     font-size: 3rem;
-    background-color: var(--primary);
-    color: var(--dark);
+    color: var(--light);
     padding: 0 10px;
-    display: inline-block;
     border-radius: var(--border-radius);
-    box-shadow: 6px 5px var(--light-dark);
   }
+
+  /* CARDS */
+.card {
+    margin: 0 0 20px 0;
+    border: 3px solid var(--primary);
+    border-radius: var(--border-radius);
+    background-color: var(--primary);
+  }
+  
+  /*.card-header {
+    color: var(--primary);
+    background-color: var(--dark);
+    padding: 2.5%;
+    border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+  }*/
+  
+  .card-body {
+    padding: 1%;
+  }
+
+  .bottom-magnifying-glass{
+    opacity: 0;
+    color: #f1f1f1;
+    font-size: 2.3rem;
+    font-family: "Staatliches", sans-serif;
+    transform: translateY(150px);
+    transition: all .5s ease-in-out;
+    background-color: rgba(234,0,39,0.7);
+  }
+  
 
 /* HEIGHT / WIDTH UTILS */
 .min-100-vh {
