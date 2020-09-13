@@ -40,13 +40,20 @@ max-width: 75%;
   }
 
   /* CARDS */
-.card {
+/*
+  .card {
     margin: 0 0 20px 0;
-    border: 3px solid var(--primary);
+    border: 3px solid var(--dark);
     border-radius: var(--border-radius);
     background-color: var(--primary);
   }
-  
+  */
+
+  .cellContainer {
+    float: left;
+    margin:5px;
+  }
+
   /*.card-header {
     color: var(--primary);
     background-color: var(--dark);

@@ -1,17 +1,14 @@
-var recentCities = new Array;
+var recentCities = "";
 var testCity="Newark"; // for testing only
 var weatherAPIkey = "6de092f191d98a89bbf3ab33da4e73c5";
 var searchButtonEl = document.querySelector("#buttons");
+var searchedButtonsEl = document.querySelector("#searched-cities")
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#city");
 //var cities="";
 
 
-var getWeather = function(myCity,myCountry) {
-//    var start = now();
-//    var end = now();
-
-//    var myWeather="http://history.openweathermap.org/data/2.5/history/city?q="+ myCity +","+ myCountry +"&type=hour&start=" + start + "&end=" + end + "&appid="+weatherAPIkey;
+var getWeather = function(myCity) {
     var myWeather="https://api.openweathermap.org/data/2.5/forecast?id="+ myCity +"&APPID="+weatherAPIkey;
 
     console.log("weather");
@@ -20,17 +17,14 @@ var getWeather = function(myCity,myCountry) {
         if(response.ok) {
             response.json().then(function(data){
                 //display weather
-                console.log(data);
-                console.log(data.list);
-                console.log(data.list[0].main);
+               // console.log(data);
+               // console.log(data.list);
+                console.log(data.list[0].main.temp.humidity);
             });
         } else {
             alert("Error: " + response.statusText);
         }
     });
-};
-
-function loadRecentCities(){ // get recent cities searched from local storage
 };
 
 var searchCities = function(cities, searchTerm) {
@@ -51,15 +45,138 @@ var searchCities = function(cities, searchTerm) {
     });
 }
 
-var loadCities = function(myCity) {
-    var myJsonCityList="https://lucianne302.github.io/Weather-Dashboard/city.list.json";
+function loadRecentCities(){ // get recent cities searched from local storage
+    recentCities = JSON.parse(localStorage.getItem("recentCities"));
+    // if nothing in localStorage, create a new object to track all task status arrays
+    if (!recentCities) {
+        recentCities = {
+            cities:[]
+        };
+    }
 
-    fetch(myJsonCityList).then(function(response){
+    // loop over object properties
+    $.each(recentCities, function(list, arr) {
+        // then loop over sub-array
+        arr.forEach(function(city) {
+            showRecentCity(city.cityName);
+        });  
+    });  
+};
+
+function showRecentCity(myCity){
+  // create elements that make up a task item
+    var cityLi = $("<li>").addClass("list-group-item");
+    var citySpan = $("<span>")
+        .addClass("btn btn-link")
+        .attr("city",myCity)
+        .text(myCity);
+    //var cityP = $("<p>")
+    //    .addClass("m-1")
+    //    .text(taskText); 
+
+  // append span and p element to parent li
+  //cityLi.append(citySpan, cityP);
+  cityLi.append(citySpan);
+
+  // append to ul list on the page
+  $("#searched-cities").append(cityLi);
+}
+
+var saveCities = function() {
+    localStorage.setItem("recentCities", JSON.stringify(recentCities));
+};
+
+
+
+
+var createCards = function (myCity){
+    var myForecast="https://api.openweathermap.org/data/2.5/forecast?q="+ myCity +"&appid=" + weatherAPIkey;
+
+
+    $("#myCards").html("");
+
+    //get data from API - see loadCities
+    fetch(myForecast).then(function(response){
         if(response.ok) {
             response.json().then(function(data){
-                //create function to search cities
                 console.log(data);
-                searchCities(data, myCity);
+
+               //display weather in top div
+               var myDays = 5;
+               for (var i = 0; i< myDays; i++) {
+                   var cardDiv = $("<div>").addClass("col-md card cellContainer");
+                   var cardBody= $("<div>").addClass("card-body");
+                   var cardTitle=$("<h5>").addClass("card-title").text("MyDate");
+                   var cardContent = $("<p>")
+                   .addClass("card-text")
+                   .text("MyWeather");
+           
+                   cardBody.append(cardTitle,cardContent);
+                   cardDiv.append(cardBody);
+                   $("#myCards").append(cardDiv);
+               }
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
+    });
+};
+
+
+var loadCities = function(myCity) {
+    //var myJsonCityList="https://lucianne302.github.io/Weather-Dashboard/city.list.json";
+    var myWeather="https://api.openweathermap.org/data/2.5/weather?q=" + myCity + "&units=imperial&appid=" + weatherAPIkey
+
+
+    var checkCities = recentCities.cities.some(city => city.cityName === myCity);
+    if (!checkCities){
+        recentCities.cities.push({
+            cityName:myCity
+        });
+    
+        // update task in array and re-save to localstorage
+        saveCities(); 
+        showRecentCity(myCity);   
+    }
+
+    $("#myCity").html("");
+
+    fetch(myWeather).then(function(response){
+        if(response.ok) {
+            response.json().then(function(data){
+                console.log(data);
+
+               //display weather in top div ***
+               var myIcon="http://openweathermap.org/img/wn/"+data.weather[0].icon+".png";
+               var myTemp=data.main.temp;
+               var myHumidity=data.main.humidity;
+               var myWind=data.wind.speed;
+               var myUV=""; //data.main.UV
+               var myDate = moment().format("MM/DD/YYYY");
+
+               var cityBody= $("<div>").addClass("card-body");
+               var cityTitle=$("<h5 id='myImg'>").addClass("card-title").text(myCity.toUpperCase()+" - "+ myDate);
+               var cityTemp = $("<p>").addClass("card-text").text("Temperature: "+Math.round(myTemp)+" ℉");
+               var cityHumidity = $("<p>").addClass("card-text").text("Humidity: "+myHumidity+"%");
+               var cityWind= $("<p>").addClass("card-text").text("Windspeed: "+myWind+" mph");
+               var cityUV= $("<p>").addClass("card-text").text("UV: "+myUV);
+
+               var imgContent= $('<img src="'+myIcon+'"/>');
+
+               cityTitle.append(imgContent);
+               cityBody.append(cityTitle,cityTemp,cityHumidity,cityWind,cityUV);
+               $("#myCity").append(cityBody);
+
+
+               console.log(data.main);
+               console.log(data.weather[0].description);
+               console.log(data.weather[0].icon);
+               console.log(data.weather[0].main);
+               console.log(data.wind.speed);
+
+                //create function to search cities
+                // searchCities(data, myCity); // Not used 
+                createCards(myCity);
             });
         } else {
             alert("Error: " + response.statusText);
@@ -72,19 +189,32 @@ var formSubmitHandler = function(event) {
     
     // get value from input element
     var cityName = cityInputEl.value.trim();
-
+    console.log(cityName); //log city name
     if (cityName) {
         loadCities(cityName);
         cityInputEl.value = "";
     } else {
-        alert("Please enter a GitHub username");
+        alert("Please enter a city");
+    }
+}
+
+var buttonClickHandler = function(event) {
+    var cityName = event.target.getAttribute("city");
+
+    if(cityName) {
+        loadCities(cityName);
+        cityInputEl.value = "";
+        //getFeaturedRepos(language);
+
+        //clear old content
+        //repoContainerEl.textContent = "";
     }
 }
 
 loadRecentCities(); // load the recent cities searched
 //loadCities(testCity); // replace with event listener & testCity with the searched city & save the searched term to local memory
 
-// recent search languageButtonsEl.addEventListener("click", buttonClickHandler); 
+searchedButtonsEl.addEventListener("click", buttonClickHandler); // recently searched
 cityFormEl.addEventListener("submit", formSubmitHandler); 
 
 /* Sample JSON
@@ -101,101 +231,3 @@ cityFormEl.addEventListener("submit", formSubmitHandler);
     }
   ]
 */
-
-/*
-var jsonCityListFile="city.list.json";
-$.get(jsonCityListFile, function(response) {
-//    var logfile = response;
-    console.log(response);
-});
-*/
-
-// load json for cities from file
-//var myJsonCityList="city.list.json";
-//$.get(myJsonCityList, function(response) {
-//    var logfile = response;
-  //  console.log(response);
-//});
-/*
-$.getJSON(myJsonCityList, function(json) {
-    console.log(json); // this will show the info it in firebug console
-});
-*/
-//$.getJSON(myJsonCityList, function(json) {
- //   console.log(json);
-  //  var items = [];
-  /*
-  $.each( data, function( key, val ) {
-    items.push( "<li id='" + key + "'>" + val + "</li>" );
-  });
-  
-});
-
-//cityList();
-
-/*var searchCity = function() {
-    fetch("http://history.openweathermap.org/data/2.5/history/city?id={id}&type=hour&start={start}&end={end}&appid={YOUR_API_KEY}").then(function(response) {
-        response.json().then(function(data) {
-        console.log(data);
-        });
-    });
-};
-searchCity();
-*/
-
-/*var searchCity = function() {
-    var city = document.getElementById("city");
-    */
-
-    //search city list for one entered or autocomplete based off list
-
-
-    // call to weather api
-    //var apiUrl = "http://history.openweathermap.org/data/2.5/history/city?id={id}&type=hour&start={start}&end={end}&appid={YOUR_API_KEY}";
-
-    // make a request to the url
-    /* fetch(apiUrl)
-        .then(function(response) {
-            if (response.ok){
-                response.json().then(function(data) {
-                    displayRepos(data, user);
-                });
-            } else {
-                alert("Error: " + response.statusText);
-        }
-    });
-}; 
-
-
-
-/* drafted future city list
-var searchCity = function() { */
-  // create elements that make up a task item
-  /* var cityLi = $("<li>").addClass("list-group-item");
-  var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
-    .text(taskDate);
-  var taskP = $("<p>")
-    .addClass("m-1")
-    .text(taskText); */
-
-  // append span and p element to parent li
-  //taskLi.append(taskSpan, taskP);
-  // check due date
-  //auditTask(taskLi);
-
-  // append to ul list on the page
-  //$("#list-" + taskList).append(taskLi);
-//};
-
-//var loadTasks = function() {
-  //tasks = JSON.parse(localStorage.getItem("tasks"));
-
-  // if nothing in localStorage, create a new object to track all task status arrays
-  //if (!tasks) {
-    //tasks = {
-      //toDo: [],
-      //inProgress: [],
-      //inReview: [],
-      //done: []
-    //}
