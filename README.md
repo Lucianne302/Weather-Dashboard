@@ -4,11 +4,14 @@ Project name: Weather-Dashboard
 
 Description/Usage: 
 This assignment's case is for frequent traveler looking for the weather forecase of several cities so that they can plan a trip.
-
-
+You will be able to search for a city and view the current forecast and the 5 day forecast.
 
 Notes:
 Added search for city
+Save city to local storage and print in city history section
+Eliminated duplicate city storage in history section and added hyperlink to city to retrieve weather when clicked
+Created city weather search results printing city name, date, weather icon with paragraphs printing temperature, himidity, wind speed, and UV Index
+Created a 5 day forecast section printing 5 days as a header, weather icon, temperature, humidity.  
 
 
 Sites used for Knowledge:
@@ -31,4 +34,6 @@ Get JSON, https://api.jquery.com/jQuery.getJSON/
 checking existance of object, https://stackoverflow.com/questions/22844560/check-if-object-value-exists-within-a-javascript-array-of-objects-and-if-not-add 
 rounding degrees, https://www.w3schools.com/JSREF/jsref_round.asp 
 moments cheat sheet, https://devhints.io/moment
-
+UV section ES7 approach to asynchronous response, https://stackoverflow.com/questions/38869197/fetch-set-variable-with-fetch-response-and-return-from-function 
+UV index color, https://www.geeksforgeeks.org/how-to-change-style-attribute-of-an-element-dynamically-using-javascript/ 
+UV index scale, https://www.epa.gov/sunsafety/uv-index-scale-0 
