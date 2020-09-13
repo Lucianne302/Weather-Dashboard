@@ -146,7 +146,7 @@ var loadCities = function(myCity) { //gets weather for a city
                var myDate = moment().format("MM/DD/YYYY"); //gets current date & formats it
 
                //UV API url & parameters
-               var myUVurl="http://api.openweathermap.org/data/2.5/uvi?appid=" + weatherAPIkey + "&lat=" + data.coord.lat+ "&lon=" + data.coord.lon;
+               var myUVurl="https://api.openweathermap.org/data/2.5/uvi?appid=" + weatherAPIkey + "&lat=" + data.coord.lat+ "&lon=" + data.coord.lon;
 
                //creates card content for current day forecast
                var cityBody= $("<div>").addClass("card-body");
